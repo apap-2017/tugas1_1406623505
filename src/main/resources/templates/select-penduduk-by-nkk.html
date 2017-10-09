@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lihat Data Keluarga</title>
+    </head>
+    <body>
+        <h1>All Students</h1>
+        <h3 th:text="'NKK = ' + ${keluarga.id}">NKK Keluarga</h3>
+        <h3 th:text="'Alamat = ' + ${keluarga.alamat}">Alamat Keluarga</h3>
+        <h3 th:text="'RT/RW = ' + ${keluarga.rt} + '/' + ${keluarga.rw}">RT/RW</h3>
+        <h3 th:text="'Kelurahan/Desa = ' + ${kelurahan.nama_kelurahan}">Kelurahan/Desa</h3>
+    	<h3 th:text="'Kecamatan = ' + ${kecamatan.nama_kecamatan}">Nama Kecamatan</h3>
+    	<h3 th:text="'Kota = ' + ${kota.nama_kota}">Nama Kota</h3>
+    				
+        
+        <hr/>
+    	<div th:each="penduduks,iterationStatus: ${penduduks}">
+            <h3 th:text="'No. ' + ${iterationStatus.count}">No. 1</h3>
+	       	<h3 th:text="'Nama Lengkap = ' + ${penduduks.nama}">Student NPM</h3>
+	       	<h3 th:text="'NIK = ' + ${penduduks.nik}">Student Name</h3>
+	       	<hr/>
+       	</div>
+    </body>
+</html>
