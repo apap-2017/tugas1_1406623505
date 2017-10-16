@@ -13,4 +13,9 @@ public interface PendudukService {
 	PendudukModel selectPenduduk (String nik);
 
 	List<PendudukModel> selectPendudukByNKK(String nkk);
+	
+	void addPenduduk(String nik, String nama, String tempat_lahir, String tanggal_lahir, int jenis_kelamin, String golongan_darah, String agama, String status_perkawinan, String pekerjaan, String is_wni, String is_wafat, String id_keluarga, String status_dalam_keluarga);
+
+	String getLastUrutanPenduduk(String minNik, String maxNik);
+
 }
