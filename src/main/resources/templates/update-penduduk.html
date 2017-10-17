@@ -11,9 +11,9 @@
 
 	<h1 class="page-header">Update Penduduk</h1>
 
-	<form action="/penduduk/tambah/submit" method="post">
+	<form th:action="@{/penduduk/ubah/__${penduduk.nik}__}" method="post">
 		<div>
-			<label for="nama" >Nama</label> <input type="text" name="nama" th:value="${penduduk.nama}" />
+			<label for="nama" >Nama</label> <input type="text" name="nama" th:field="${penduduk.nama}" />
 		</div>
 		<div>
 			<label for="tempat_lahir" >Tempat_lahir</label> <input type="text" name="tempat_lahir" th:value="${penduduk.tempat_lahir}"/>
@@ -24,11 +24,16 @@
 		<div>
 			<label for="golongan_darah" >Golongan Darah</label>
 			<select name="golongan_darah"  id="golongan_darah">
-				<option value = "AB">AB</option>
-				<option value = "A">A</option>
-				<option value = "B">B</option>
-				<option value = "O-">O-</option>
-				<option value = "O+">O+</option>
+				<option value = "AB" th:if="${penduduk.golongan_darah.equals('AB')}" selected="true">AB</option>
+				<option value = "AB" th:if="${penduduk.golongan_darah.equals('AB') == false}" >AB</option>
+				<option value = "A" th:if="${penduduk.golongan_darah.equals('A')}" selected="true">A</option>
+				<option value = "A" th:if="${penduduk.golongan_darah.equals('A') == false}" >A</option>
+				<option value = "B" th:if="${penduduk.golongan_darah.equals('B')}" selected="true">B</option>
+				<option value = "B" th:if="${penduduk.golongan_darah.equals('B') == false}" >B</option>
+				<option value = "O-" th:if="${penduduk.golongan_darah.equals('O-')}" selected="true">O-</option>
+				<option value = "O-" th:if="${penduduk.golongan_darah.equals('O-') == false}">O-</option>
+				<option value = "O+" th:if="${penduduk.golongan_darah.equals('O+')}" selected="true">O+</option>
+				<option value = "O+" th:if="${penduduk.golongan_darah.equals('O+') == false}" >O+</option>
 				</select>
 			
 		</div>
@@ -38,8 +43,10 @@
 		<div>
 			<label for="status_perkawinan" >Status Perkawinan</label> 
 			<select name="status_perkawinan"  id="status_perkawinan">
-				<option>Kawin</option>
-				<option>Belum Kawin</option>
+				<option th:if="${penduduk.status_perkawinan.equalsIgnoreCase('Kawin')}" selected="true" >Kawin</option>
+				<option th:if="${penduduk.status_perkawinan.equalsIgnoreCase('Kawin') == false}" >Kawin</option>
+				<option th:if="${penduduk.status_perkawinan.equalsIgnoreCase('Belum Kawin')}" selected="true">Belum Kawin</option>
+				<option th:if="${penduduk.status_perkawinan.equalsIgnoreCase('Belum Kawin') == false}" >Belum Kawin</option>
 				</select>
 		</div>
 		<div>
@@ -51,15 +58,17 @@
 		<div>
 			<label for="status_kematian" >Status Kematian</label>
 			<select name="status_kematian"  id="status_kematian">
-				<option>Hidup</option>
-				<option>Wafat</option>
+				<option th:if="${penduduk.is_wafat.equals('0')}" selected="true">Hidup</option>
+				<option th:if="${penduduk.is_wafat.equals('0') == false}" >Hidup</option>
+				<option th:if="${penduduk.is_wafat.equals('1')}" selected="true">Wafat</option>
+				<option th:if="${penduduk.is_wafat.equals('1') == false}" >Wafat</option>
 				</select>
 		</div>
 		<div>
-			<label for="nkk" >Id Keluarga</label> <input type="text" name="nkk" />
+			<label for="nkk" >Id Keluarga</label> <input type="text" name="nkk" th:value="${penduduk.id_keluarga}"/>
 		</div>
 		<div>
-			<label for="status_dalam_keluarga" >Status Dalam Keluarga</label> <input type="text" name="status_dalam_keluarga" />
+			<label for="status_dalam_keluarga" >Status Dalam Keluarga</label> <input type="text" name="status_dalam_keluarga" th:value="${penduduk.status_dalam_keluarga}" />
 		</div>
 			
 		

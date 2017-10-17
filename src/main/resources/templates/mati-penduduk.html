@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Tambah Penduduk</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+	<h1 class="page-header">Ubah Status Kematian </h1>
+
+	<form action="/penduduk/mati" method="post">
+		<h3 th:text="'NIK = ' + ${penduduk.nik}">NIK Penduduk</h3>
+		
+		<div>
+			<label for="nama" ></label> <input type="hidden" name="nik" th:value="${penduduk.nik}" />
+		</div>
+		<div>
+			<label for="status_kematian" >Status Kematian</label>
+			<select name="status_kematian"  id="status_kematian">
+				<option value = "0" th:if="${penduduk.is_wafat.equals('0')}" selected="true">Hidup</option>
+				<option value = "0" th:if="${penduduk.is_wafat.equals('0') == false}" >Hidup</option>
+				<option value = "1" th:if="${penduduk.is_wafat.equals('1')}" selected="true">Wafat</option>
+				<option value = "1" th:if="${penduduk.is_wafat.equals('1') ==false}" >Wafat</option>
+				</select>
+		</div>
+		<div>
+			<button type="submit" name="action" value="save">Simpan</button>
+		</div>
+	</form>
+
+</body>
+
+</html>
+
