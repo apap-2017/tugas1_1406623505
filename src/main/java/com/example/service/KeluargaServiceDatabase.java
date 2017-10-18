@@ -66,4 +66,16 @@ public class KeluargaServiceDatabase implements KeluargaService{
 		// TODO Auto-generated method stub
 		return pendudukMapper.selectKeluargaByKelurahan(Integer.parseInt(id_kelurahan));
 	}
+
+	@Override
+	public KeluargaModel selectKeluargaByNkk(String nkk) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKeluargaByNKK(nkk);
+	}
+
+	@Override
+	public void updateKeluarga(String alamat, int rt, int rw, String id_kelurahan, String newnkk, String nkk) {
+		// TODO Auto-generated method stub
+		pendudukMapper.updateKeluarga(alamat, rt, rw, Integer.parseInt(id_kelurahan), newnkk, nkk);
+	}
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Tambah Penduduk</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+	<h1 class="page-header">Ubah Data Keluarga</h1>
+
+	<form th:action="@{/keluarga/ubah/__${keluarga.nomor_kk}__}" method="post">
+		<div>
+			<label for="alamat" >Alamat</label> <input type="text" name="alamat" th:field="${keluarga.alamat}" />
+		</div>
+		<div>
+			<label for="rt" >RT</label> <input type="text" name="rt" th:value="${keluarga.rt}"/>
+		</div>
+		<div>
+			<label for="rw" >RW</label> <input type="text" name="rw" th:value="${keluarga.rw}" />
+		</div>
+		<div>
+			<label for="kelurahan" >Kelurahan/Desa</label> 
+			<select name = "kelurahan">
+				<div th:each = "kelurahans: ${kelurahans}">
+					<option th:value="${kelurahans.id}" th:text="${kelurahans.nama_kelurahan}" th:if="${kelurahans.id == keluarga.id_kelurahan}" selected="true"></option>
+					<option th:value="${kelurahans.id}" th:text="${kelurahans.nama_kelurahan}" th:if="${kelurahans.id != keluarga.id_kelurahan}"></option>
+				</div>
+			</select>
+		</div>
+			
+		
+		<div>
+			<button type="submit" name="action" value="save">Simpan</button>
+		</div>
+	</form>
+
+</body>
+
+</html>
+

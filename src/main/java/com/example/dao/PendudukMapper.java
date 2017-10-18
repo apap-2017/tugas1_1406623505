@@ -39,11 +39,17 @@ public interface PendudukMapper {
 	@Select("select * from keluarga where id = #{id_keluarga}")
 	KeluargaModel selectKeluarga (@Param("id_keluarga") String id_keluarga);
 	
+	@Select("select * from keluarga where nomor_kk = #{nkk}")
+	KeluargaModel selectKeluargaByNKK (@Param("nkk") String nkk);
+	
 	@Select("select * from keluarga")
 	List <KeluargaModel> selectKeluargaAll();
 	
 	@Select("select * from keluarga where id_kelurahan = #{id_kelurahan}")
 	List <KeluargaModel> selectKeluargaByKelurahan(@Param("id_kelurahan") int id_kelurahan);
+	
+	@Update("update keluarga SET alamat = #{alamat}, rt = #{rt}, rw = #{rw}, id_kelurahan = #{id_kelurahan}, nomor_kk = #{newnkk} where nomor_kk = #{nkk}")
+	void updateKeluarga(@Param("alamat") String alamat, @Param("rt") int rt, @Param("rw") int rw, @Param("id_kelurahan") int id_kelurahan, @Param("newnkk") String newnkk, @Param("nkk") String nkk);
 	
 	@Select("select * from kota")
 	List <KotaModel> selectKotaAll();

@@ -211,38 +211,12 @@ public class PendudukController {
         return "add-penduduk";
     }
 	
-	@RequestMapping("/penduduk/ubah")
-	public String updatePenduduk (Model model, @RequestParam(value = "nik") String nik)
-    {
-		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
-		
-        model.addAttribute("penduduk", penduduk);
-        if (penduduk.getIs_wni().equals("1"))
-        {
-        	String kwn = "indonesia";
-        	model.addAttribute("kewarganegaraan", kwn);
-            
-        }
-        else
-        {
-        	String kwn = "asing";
-        	model.addAttribute("kewarganegaraan", kwn);
-        }
-        
-        if (penduduk.getIs_wafat().equals("1"))
-        {
-        	model.addAttribute("is_wafat", "Wafat");
-            
-        }
-        else
-        {
-        	model.addAttribute("is_wafat", "Hidup");
-            
-        }
-        
-        return "update-penduduk";
-    }
 	
+	
+	/**
+	 * 
+	 * Fitur 1
+	 */
 	@RequestMapping("/penduduk/tambah/submit")
     public String addSubmit (
     		Model model, @RequestParam
@@ -303,6 +277,42 @@ public class PendudukController {
 		return "add-penduduk-success";
     }
 	
+	/**
+	 * 
+	 * Fitur 5
+	 */
+	
+	@RequestMapping("/penduduk/ubah")
+	public String updatePenduduk (Model model, @RequestParam(value = "nik") String nik)
+    {
+		PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
+		
+        model.addAttribute("penduduk", penduduk);
+        if (penduduk.getIs_wni().equals("1"))
+        {
+        	String kwn = "indonesia";
+        	model.addAttribute("kewarganegaraan", kwn);
+            
+        }
+        else
+        {
+        	String kwn = "asing";
+        	model.addAttribute("kewarganegaraan", kwn);
+        }
+        
+        if (penduduk.getIs_wafat().equals("1"))
+        {
+        	model.addAttribute("is_wafat", "Wafat");
+            
+        }
+        else
+        {
+        	model.addAttribute("is_wafat", "Hidup");
+            
+        }
+        
+        return "update-penduduk";
+    }
 	@RequestMapping(value="/penduduk/ubah/{nik}", method=RequestMethod.POST)
     public String updatePendudukSubmit (@PathVariable(value = "nik") String nik,
     		Model model, @RequestParam
@@ -372,6 +382,83 @@ public class PendudukController {
 	
 	/**
 	 * 
+	 * Fitur 6
+	 */
+	
+	@RequestMapping(value = "/keluarga/ubah/{nkk}", method=RequestMethod.GET)
+	public String updateKeluarga (@PathVariable(value = "nkk") String nkk, 
+			Model model)
+    {
+		KeluargaModel keluarga = keluargaDAO.selectKeluargaByNkk(nkk);
+		List <KelurahanModel> kelurahans = kelurahanDAO.selectKelurahanAll();
+        
+        
+		model.addAttribute("keluarga", keluarga);
+        model.addAttribute("kelurahans", kelurahans);
+        
+        return "update-keluarga";
+    }
+	@RequestMapping(value="/keluarga/ubah/{nkk}", method=RequestMethod.POST)
+    public String updateKeluargaSubmit (@PathVariable(value = "nkk") String nkk,
+    		Model model, 
+    			@RequestParam (value = "alamat") String alamat,
+    			@RequestParam (value = "rt") int rt,
+    			@RequestParam (value = "rw") int rw,
+    			@RequestParam (value = "kelurahan") String id_kelurahan
+    		)
+    
+    
+    {
+		System.out.println("aaaa " + id_kelurahan);
+		KeluargaModel keluarga = keluargaDAO.selectKeluargaByNkk(nkk);
+		KelurahanModel kelurahan = kelurahanDAO.selectKelurahan(id_kelurahan);
+		KecamatanModel kecamatan = kecamatanDAO.selectKecamatan(kelurahan.getId_kecamatan());
+		
+		KotaModel kota = kotaDAO.selectKota(kecamatan.getId_kota());
+		//int kode1 = kecamatan.getId_kota();
+		System.out.println("zz " + id_kelurahan);
+		System.out.println("xx " + keluarga.getId_kelurahan());
+		
+		
+		String newnkk = nkk;
+		List <PendudukModel> penduduks = pendudukDAO.selectPendudukByNKK(keluarga.getId());
+		if (id_kelurahan.equals(keluarga.getId_kelurahan()) ==false)
+		{
+			String stringDate = nkk.substring(6, 12);
+			newnkk = constructNkk(kecamatan.getKode_kecamatan(), stringDate);
+			System.out.println("nnnnn " + stringDate);
+			
+			System.out.println("pre bikin nik");
+			for (int i = 0; i < penduduks.size(); i++)
+			{
+				System.out.println("bikin nik");
+				String newnik = constructNik(kecamatan.getKode_kecamatan(),penduduks.get(i).getTanggal_lahir(), penduduks.get(i).getJenis_kelamin());
+				pendudukDAO.updatePenduduk(penduduks.get(i).getNik(),
+						newnik,
+						penduduks.get(i).getNama(), 
+						penduduks.get(i).getTempat_lahir(),
+						penduduks.get(i).getTanggal_lahir(), 
+						penduduks.get(i).getJenis_kelamin(), 
+						penduduks.get(i).getGolongan_darah(), 
+						penduduks.get(i).getAgama(), 
+						penduduks.get(i).getStatus_perkawinan(), 
+						penduduks.get(i).getPekerjaan(), 
+						penduduks.get(i).getIs_wni(), 
+						penduduks.get(i).getIs_wafat(), 
+						penduduks.get(i).getId_keluarga(), 
+						penduduks.get(i).getStatus_dalam_keluarga());
+				
+			}
+		}
+		
+		keluargaDAO.updateKeluarga(alamat, rt, rw, id_kelurahan, newnkk, nkk);
+		model.addAttribute("nkk", nkk);
+		return "update-keluarga-success";
+    }
+	
+	
+	/**
+	 * 
 	 * Constructor NKK dan NIK
 	 */
 	private String constructNkk(String kodeDaerah, String tanggal) {
@@ -402,6 +489,11 @@ public class PendudukController {
 			return String.valueOf(Long.parseLong(lastNoUrutNik)+1);
 		}
 	}
+	
+	/**
+	 * 
+	 * Fitur 8
+	 */
 	
 	@RequestMapping("/penduduk/cari")
 	private String searchPenduduk(Model model, 

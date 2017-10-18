@@ -20,4 +20,8 @@ public interface KeluargaService {
 	void updateKematianKeluarga(int is_tidak_berlaku, int parseInt);
 
 	List<KeluargaModel> selecKeluargaByKelurahan(String id_kelurahan);
+
+	KeluargaModel selectKeluargaByNkk(String nkk);
+
+	void updateKeluarga(String alamat, int rt, int rw, String id_kelurahan, String newnkk, String nkk);
 }
