@@ -24,4 +24,6 @@ public interface PendudukService {
 
 	void updateKematianPenduduk(int status_kematian, String nik);
 
+	List<PendudukModel> selectPendudukNIKNamaJenisKelaminByNKK(String id);
+
 }

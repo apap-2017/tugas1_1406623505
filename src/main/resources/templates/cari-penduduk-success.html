@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lihat Data Keluarga</title>
+        
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+ 
+		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+    </head>
+    <body>
+        <h1>Daftar Penduduk</h1>
+        <div th:each="penduduks,iterationStatus: ${penduduks}">
+	        <h3 th:text="'NIK = ' + ${penduduks.nik}">NIK Penduduk</h3>
+	        <h3 th:text="'Nama = ' + ${penduduks.nama}">Nama Penduduk</h3>
+	        <h3 th:text="'Jenis Kelamin = Laki-Laki' " th:if="${penduduks.jenis_kelamin.equals('1')}">Laki laki</h3>
+	        <h3 th:text="'Jenis Kelamin = Perempuan' " th:if="${penduduks.jenis_kelamin.equals('1')}">Laki laki</h3>
+	        			
+        </div>
+        
+    </body>
+</html>

@@ -53,4 +53,17 @@ public class KeluargaServiceDatabase implements KeluargaService{
 		
 		
 	}
+
+	@Override
+	public void updateKematianKeluarga(int is_tidak_berlaku, int id) {
+		// TODO Auto-generated method stub
+		System.out.println("nnnn " + id);
+		pendudukMapper.updateKematiankeluarga(is_tidak_berlaku, id);
+	}
+
+	@Override
+	public List<KeluargaModel> selecKeluargaByKelurahan(String id_kelurahan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKeluargaByKelurahan(Integer.parseInt(id_kelurahan));
+	}
 }

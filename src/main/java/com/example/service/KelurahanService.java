@@ -14,4 +14,6 @@ public interface KelurahanService {
 	KelurahanModel selectKelurahanByName(String name);
 	
 	List <KelurahanModel> selectKelurahanAll();
+
+	List<KelurahanModel> selectKelurahanAllByKecamatan(String id_kecamatan);
 }

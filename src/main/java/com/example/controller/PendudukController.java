@@ -53,9 +53,45 @@ public class PendudukController {
     		)
     {
         PendudukModel penduduk = pendudukDAO.selectPenduduk(nik);
+		String id_keluarga = penduduk.getId_keluarga();
+		List <PendudukModel> penduduks = pendudukDAO.selectPendudukByNKK(id_keluarga);
+        int is_tidak_berlaku = 0;
+        
+        
 		int status_kematian = Integer.parseInt(status_kematian_string);
         model.addAttribute("penduduk", penduduk);
         pendudukDAO.updateKematianPenduduk(status_kematian, nik);
+        
+        int jumlah_wafat = 0;
+        for (int i = 0; i < penduduks.size(); i++)
+        {
+        	System.out.println("yey = " + penduduks.size());
+            
+        	
+        	if (penduduks.get(i).getIs_wafat().equalsIgnoreCase("1"))
+        	{
+        		
+        		
+        		jumlah_wafat++;
+        		System.out.println(jumlah_wafat);
+    			
+        		if (jumlah_wafat == penduduks.size())
+        		{
+        			
+        			is_tidak_berlaku = 1;
+        		}
+        	}
+        }
+		
+        System.out.println("Tidak berlaku  = " + is_tidak_berlaku);
+        if (is_tidak_berlaku == 1)
+        {
+        	keluargaDAO.updateKematianKeluarga(is_tidak_berlaku, Integer.parseInt(keluargaDAO.selectKeluarga(penduduk.getId_keluarga()).getId()));
+        }
+        else
+        {
+        	keluargaDAO.updateKematianKeluarga(0, Integer.parseInt(keluargaDAO.selectKeluarga(penduduk.getId_keluarga()).getId()));
+        }
         return "mati-penduduk-success";
     }
 	
@@ -365,5 +401,60 @@ public class PendudukController {
 		} else {
 			return String.valueOf(Long.parseLong(lastNoUrutNik)+1);
 		}
+	}
+	
+	@RequestMapping("/penduduk/cari")
+	private String searchPenduduk(Model model, 
+			@RequestParam(value = "id_kota", required = false) String id_kota,
+			@RequestParam(value = "id_kecamatan", required = false) String id_kecamatan,
+			@RequestParam(value = "id_kelurahan", required = false) String id_kelurahan
+			)
+	{
+			List <KotaModel> kotas = kotaDAO.selectKotaAll();
+			model.addAttribute("kotas", kotas);
+			if (id_kota == null)
+			{
+				model.addAttribute("id_kota", null);
+			}
+			else
+			{
+				List <KecamatanModel> kecamatans = kecamatanDAO.selectKecamatanByKota(id_kota);
+				model.addAttribute("id_kota", id_kota);
+				model.addAttribute("kecamatans", kecamatans);
+			}
+			
+			if (id_kecamatan == null)
+			{
+				model.addAttribute("id_kecamatan", id_kecamatan);
+			}
+			else
+			{
+				List <KelurahanModel> kelurahans = kelurahanDAO.selectKelurahanAllByKecamatan(id_kecamatan);
+				model.addAttribute("kelurahans", kelurahans);
+				model.addAttribute("id_kecamatan", id_kecamatan);
+			}
+			
+			if (id_kota != null && id_kecamatan != null && id_kelurahan != null)
+			{
+				List <KeluargaModel> keluargas = keluargaDAO.selecKeluargaByKelurahan(id_kelurahan);
+				
+				List <PendudukModel> penduduks = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(0).getId());
+				
+				for(int i = 1; i < keluargas.size(); i++)
+				{
+					List <PendudukModel> a = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(i).getId());
+					for (int j = 0; j < a.size(); j++)
+					{
+						penduduks.add(a.get(j));
+						System.out.println(a.get(j).getNama());
+					}
+				}
+				
+				model.addAttribute("penduduks", penduduks);
+				return "cari-penduduk-success";
+			}
+			
+			
+		return "cari-penduduk";
 	}
 }

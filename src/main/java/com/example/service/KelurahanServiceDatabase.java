@@ -35,4 +35,10 @@ public class KelurahanServiceDatabase implements KelurahanService {
 		// TODO Auto-generated method stub
 		return pendudukMapper.selectKelurahanAll();
 	}
+
+	@Override
+	public List<KelurahanModel> selectKelurahanAllByKecamatan(String id_kecamatan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKelurahanAllByKecamatan(Integer.parseInt(id_kecamatan));
+	}
 }

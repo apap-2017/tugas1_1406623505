@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,14 @@ public class KecamatanServiceDatabase implements KecamatanService
 		KecamatanModel asd = pendudukMapper.selectKecamatan(id_kecamatan);
         //System.out.println(asd.getNama());
 		return asd;
+	}
+
+
+
+	@Override
+	public List<KecamatanModel> selectKecamatanByKota(String id_kota) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectKecamatanByKota(Integer.parseInt(id_kota));
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,13 @@ public class KotaServiceDatabase implements KotaService {
 		KotaModel asd = pendudukMapper.selectKota(id_kota);
         //System.out.println(asd.getNama());
 		return asd;
+	}
+	@Override
+	public List<KotaModel> selectKotaAll() {
+		// TODO Auto-generated method stub
+		
+		List <KotaModel> kotas =  pendudukMapper.selectKotaAll();
+		return kotas;
 	}
 
 	

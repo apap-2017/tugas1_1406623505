@@ -65,4 +65,10 @@ public class PendudukServiceDatabase implements PendudukService
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<PendudukModel> selectPendudukNIKNamaJenisKelaminByNKK(String id) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectPendudukNIKNamaJenisKelaminByNKK(id);
+	}
 }
