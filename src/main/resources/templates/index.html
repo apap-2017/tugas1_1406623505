@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Index</title>
+</head>
+<body>
+
+	<form action="/penduduk" method="get">
+		<div>
+			<label for="nik" >NIK</label> <input type="text" name="nik" />
+		</div>	
+		
+		<div>
+			<button type="submit" name="action" value="cari">Lihat</button>
+		</div>
+	</form>
+	
+	<hr/>
+	<form action="/keluarga" method="get">
+		<div>
+			<label for="nkk" >NKK</label> <input type="text" name="nkk" />
+		</div>	
+		
+		<div>
+			<button type="submit" name="action" value="cari">Lihat</button>
+		</div>
+	</form>
+</body>
+</html>	

@@ -14,11 +14,35 @@
     				
         
         <hr/>
+        <table>
+        
+        <tr>
+        	<td>
+       			No.
+        	</td>
+        
+    		<td>
+        		Nama Lengkap
+        	</td>
+        
+    		<td>
+        		NIK
+        	</td>
+        </tr>
+    	
     	<div th:each="penduduks,iterationStatus: ${penduduks}">
-            <h3 th:text="'No. ' + ${iterationStatus.count}">No. 1</h3>
-	       	<h3 th:text="'Nama Lengkap = ' + ${penduduks.nama}">Student NPM</h3>
-	       	<h3 th:text="'NIK = ' + ${penduduks.nik}">Student Name</h3>
-	       	<hr/>
+            <tr>
+            <td>
+            <h3 th:text="${iterationStatus.count}">No. 1</h3>
+	       	</td>
+	       	<td>
+	       	<h3 th:text="${penduduks.nama}">Student NPM</h3>
+	       	</td>
+	       	<td>
+	       	<h3 th:text="${penduduks.nik}">Student Name</h3>
+	       	</td>
+	       	</tr>
        	</div>
+       	</table>
     </body>
 </html>

@@ -38,6 +38,15 @@ public class PendudukController {
 	@Autowired
 	KotaService kotaDAO;
 	
+	@RequestMapping("/")
+	public String index()
+	{
+		
+		return "index";
+	}
+	/**
+	 * Fitur 7
+	 */
 	@RequestMapping(value = "/penduduk/{nik}", method = RequestMethod.GET)
     public String ubahKematianPenduduk (@PathVariable (value= "nik") String nik, Model model)
     {
@@ -139,8 +148,8 @@ public class PendudukController {
 	@RequestMapping("/keluarga")
 	public String getPendudukByKeluarga(Model model, @RequestParam(value = "nkk") String nkk)
 	{
-		KeluargaModel keluarga = keluargaDAO.selectKeluarga(nkk);
-		List <PendudukModel> penduduks = pendudukDAO.selectPendudukByNKK(nkk);
+		KeluargaModel keluarga = keluargaDAO.selectKeluargaByNkk(nkk);
+		List <PendudukModel> penduduks = pendudukDAO.selectPendudukByNKK(keluarga.getId());
 		KelurahanModel kelurahan = kelurahanDAO.selectKelurahan(keluarga.getId_kelurahan());
 		KecamatanModel kecamatan = kecamatanDAO.selectKecamatan(kelurahan.getId_kecamatan());
 		KotaModel kota = kotaDAO.selectKota(kecamatan.getId_kota());
