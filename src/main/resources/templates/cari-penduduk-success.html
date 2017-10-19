@@ -3,19 +3,47 @@
     <head>
         <title>Lihat Data Keluarga</title>
         
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
- 
-		<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+        <script src="/js/jquery-3.2.1.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+	  	
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	    <script>
+	        $(document).ready(function () {
+	            $('#tabel-mhs').DataTable();
+	        });
+	        
+	        
+	    </script>
+		
+		
+		
     </head>
     <body>
         <h1>Daftar Penduduk</h1>
+        
+        <table id="tabel-mhs" class="table">
+        
+        <thead>
+		        <tr>
+		            <th>NIK </th>
+		            <th>Nama</th>
+		            <th>Jenis Kelamin</th>
+		            
+		        </tr>
+		    </thead>
+    	
+    	<tbody>
         <div th:each="penduduks,iterationStatus: ${penduduks}">
-	        <h3 th:text="'NIK = ' + ${penduduks.nik}">NIK Penduduk</h3>
-	        <h3 th:text="'Nama = ' + ${penduduks.nama}">Nama Penduduk</h3>
-	        <h3 th:text="'Jenis Kelamin = Laki-Laki' " th:if="${penduduks.jenis_kelamin.equals('1')}">Laki laki</h3>
-	        <h3 th:text="'Jenis Kelamin = Perempuan' " th:if="${penduduks.jenis_kelamin.equals('1')}">Laki laki</h3>
-	        			
+	        <tr>
+	        <td><h3 th:text="${penduduks.nik}">NIK Penduduk</h3></td>
+	        <td><h3 th:text="${penduduks.nama}">Nama Penduduk</h3></td>
+	        <td><h3 th:text="'Laki-laki'" th:if="${penduduks.jenis_kelamin == 1}"></h3>
+	        <h3 th:text="'Perempuan' " th:if="${penduduks.jenis_kelamin == 0}"></h3>
+	        </td>
+	        </tr>			
         </div>
         
+        </tbody>
+        </table>
     </body>
 </html>

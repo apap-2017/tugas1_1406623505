@@ -2,6 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Lihat Data Keluarga</title>
+	    <script src="/js/jquery-3.2.1.min.js"></script>
+	    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+	  	
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	    <script>
+	        $(document).ready(function () {
+	            $('#tabel-mhs').DataTable();
+	        });
+	        
+	        
+	    </script>
+    
     </head>
     <body>
         <h1>Data Penduduk</h1>
@@ -14,22 +26,17 @@
     				
         
         <hr/>
-        <table>
+        <table id="tabel-mhs" class="table">
         
-        <tr>
-        	<td>
-       			No.
-        	</td>
-        
-    		<td>
-        		Nama Lengkap
-        	</td>
-        
-    		<td>
-        		NIK
-        	</td>
-        </tr>
+        <thead>
+		        <tr>
+		            <th>No. </th>
+		            <th>Nama Lengkap</th>
+		            <th>NIK</th>
+		        </tr>
+		    </thead>
     	
+    	<tbody>
     	<div th:each="penduduks,iterationStatus: ${penduduks}">
             <tr>
             <td>
@@ -43,6 +50,13 @@
 	       	</td>
 	       	</tr>
        	</div>
+       </tbody>
        	</table>
+       	
+
+		    
+		    
+		        
+		    
     </body>
 </html>

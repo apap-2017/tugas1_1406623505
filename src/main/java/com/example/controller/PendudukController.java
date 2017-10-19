@@ -144,7 +144,9 @@ public class PendudukController {
 		
         return "detil-penduduk";
     }
-	
+	/**
+	 *	Fitur 2 
+	 */
 	@RequestMapping("/keluarga")
 	public String getPendudukByKeluarga(Model model, @RequestParam(value = "nkk") String nkk)
 	{
@@ -540,22 +542,29 @@ public class PendudukController {
 				List <KeluargaModel> keluargas = keluargaDAO.selecKeluargaByKelurahan(id_kelurahan);
 				
 				List <PendudukModel> penduduks = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(0).getId());
-				
 				for(int i = 1; i < keluargas.size(); i++)
 				{
 					List <PendudukModel> a = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(i).getId());
 					for (int j = 0; j < a.size(); j++)
 					{
 						penduduks.add(a.get(j));
-						System.out.println(a.get(j).getNama());
+						//System.out.println(a.get(j).getNama());
 					}
 				}
-				
 				model.addAttribute("penduduks", penduduks);
 				return "cari-penduduk-success";
 			}
 			
-			
+		/**
+		if (id_kecamatan != null)
+		{
+			return "cari-penduduk-disabled-disabled";
+		}
+		if (id_kota != null)
+		{
+			return "cari-penduduk-disabled";
+		}
+		*/
 		return "cari-penduduk";
 	}
 }

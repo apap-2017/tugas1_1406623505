@@ -16,7 +16,7 @@
 		
 		<div>
 			<label for="kota" >Kota</label> 
-			<select name = "id_kota" onchange="this.form.submit()" >
+			<select name = "id_kota" onchange="this.form.submit()" disabled="disabled">
 				<option>Pilih Kota</option>
 				<div th:each = "kotas: ${kotas}">
 					<option th:value="${kotas.id}" th:text="${kotas.nama_kota}" th:if="${kotas.id.equals(id_kota)}" selected="true" ></option>
@@ -27,7 +27,7 @@
 		
 		<div th:if="${id_kota != null}">
 			<label for="id_kecamatan" >Kecamatan</label> 
-			<select name = "id_kecamatan" onchange="this.form.submit()">
+			<select name = "id_kecamatan" onchange="this.form.submit()" readonly>
 				<option>Pilih Kecamatan</option>
 				<div th:each = "kecamatans: ${kecamatans}">
 					<option th:value="${kecamatans.id}" th:text="${kecamatans.nama_kecamatan}" th:if="${kecamatans.id.equals(id_kecamatan)}" selected="true"></option>
