@@ -71,4 +71,10 @@ public class PendudukServiceDatabase implements PendudukService
 		// TODO Auto-generated method stub
 		return pendudukMapper.selectPendudukNIKNamaJenisKelaminByNKK(id);
 	}
+
+	@Override
+	public List<PendudukModel> selectPendudukByKelurahan(String id_kelurahan) {
+		// TODO Auto-generated method stub
+		return pendudukMapper.selectPendudukByDaerah(Integer.parseInt(id_kelurahan));
+	}
 }

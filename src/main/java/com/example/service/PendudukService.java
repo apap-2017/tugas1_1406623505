@@ -26,4 +26,6 @@ public interface PendudukService {
 
 	List<PendudukModel> selectPendudukNIKNamaJenisKelaminByNKK(String id);
 
+	List<PendudukModel> selectPendudukByKelurahan(String id_kelurahan);
+
 }

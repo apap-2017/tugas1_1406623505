@@ -14,7 +14,7 @@
 	<form action="/penduduk/cari" method="get">
 		
 		
-		<div>
+		<div th:if="${id_kota == null}">
 			<label for="kota" >Kota</label> 
 			<select name = "id_kota" onchange="this.form.submit()" >
 				<option>Pilih Kota</option>
@@ -26,6 +26,24 @@
 		</div>
 		
 		<div th:if="${id_kota != null}">
+			<label for="kota" >Kota</label> 
+			<select name = "id_kota_disabled" disabled="true" >
+				<option>Pilih Kota</option>
+				<div th:each = "kotas: ${kotas}">
+					<option th:value="${kotas.id}" th:text="${kotas.nama_kota}" th:if="${kotas.id.equals(id_kota)}" selected="true" ></option>
+					<option th:value="${kotas.id}" th:text="${kotas.nama_kota}" th:if="${kotas.id.equals(id_kota) == false}"  ></option>
+				</div>
+			</select>
+		</div>
+		
+		<div th:if="${id_kota != null}">
+				<div th:each = "kotas: ${kotas}">
+					<input type="hidden" name="id_kota" th:value="${kotas.id}"  th:if="${kotas.id.equals(id_kota)}"  />
+				</div>
+		</div>
+		
+		<div th:if="${id_kota != null}">
+		<div th:if="${id_kecamatan == null}">
 			<label for="id_kecamatan" >Kecamatan</label> 
 			<select name = "id_kecamatan" onchange="this.form.submit()">
 				<option>Pilih Kecamatan</option>
@@ -34,6 +52,26 @@
 					<option th:value="${kecamatans.id}" th:text="${kecamatans.nama_kecamatan}" th:if="${kecamatans.id.equals(id_kecamatan) == false}" ></option>
 				</div>
 			</select>
+		</div>
+		</div>
+		
+		<div th:if="${id_kota != null}">
+		<div th:if="${id_kecamatan != null}">
+			<label for="id_kecamatan" >Kecamatan</label> 
+			<select name = "id_kecamatan" onchange="this.form.submit()" disabled = "true">
+				<option>Pilih Kecamatan</option>
+				<div th:each = "kecamatans: ${kecamatans}">
+					<option th:value="${kecamatans.id}" th:text="${kecamatans.nama_kecamatan}" th:if="${kecamatans.id.equals(id_kecamatan)}" selected="true"></option>
+					<option th:value="${kecamatans.id}" th:text="${kecamatans.nama_kecamatan}" th:if="${kecamatans.id.equals(id_kecamatan) == false}" ></option>
+				</div>
+			</select>
+		</div>
+		</div>
+		
+		<div th:if="${id_kecamatan != null}">
+				<div th:each = "kecamatans: ${kecamatans}">
+					<input type="hidden" name="id_kecamatan" th:value="${kecamatans.id}"  th:if="${kecamatans.id.equals(id_kecamatan)}"  />
+				</div>
 		</div>
 		
 		<div th:if="${id_kecamatan != null}">

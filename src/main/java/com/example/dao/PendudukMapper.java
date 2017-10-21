@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -26,6 +27,16 @@ public interface PendudukMapper {
 	@Select("select nik, nama, jenis_kelamin from penduduk where id_keluarga = #{nkk}")
 	List <PendudukModel> selectPendudukNIKNamaJenisKelaminByNKK (@Param("nkk") String nkk);
 	
+	/**
+	 * khusus untuk nomor 8
+	 */
+	@Select("SELECT * from penduduk where id_keluarga IN (select id from keluarga where id_kelurahan = #{id})")
+	List<PendudukModel> selectPendudukByDaerah(@Param("id") int id);
+	
+	/**
+	 * 
+	 * Update Penduduk
+	 */
 	@Update("update penduduk SET nik = #{newnik}, nama =#{nama}, tempat_lahir = #{tempat_lahir}, tanggal_lahir = #{tanggal_lahir}, jenis_kelamin = #{jenis_kelamin}, golongan_darah = #{golongan_darah}, agama = #{agama}, status_perkawinan = #{status_perkawinan}, pekerjaan = #{pekerjaan}, is_wni = #{is_wni}, is_wafat = #{is_wafat}, id_keluarga = #{id_keluarga}, status_dalam_keluarga = #{status_dalam_keluarga} WHERE nik = #{nik}")
     void updatePenduduk(@Param("nik") String nik, @Param("newnik") String newnik, @Param("nama") String nama, @Param("tempat_lahir") String tempat_lahir, @Param("tanggal_lahir")String tanggal_lahir, @Param("jenis_kelamin") int jenis_kelamin, @Param("golongan_darah")String golongan_darah, @Param("agama") String agama, @Param("status_perkawinan")String status_perkawinan, @Param("pekerjaan")String pekerjaan, @Param("is_wni")int is_wni, @Param("is_wafat")int is_wafat, @Param("id_keluarga") int id_keluarga, @Param("status_dalam_keluarga") String status_dalam_keluarga);
 	

@@ -539,18 +539,27 @@ public class PendudukController {
 			
 			if (id_kota != null && id_kecamatan != null && id_kelurahan != null)
 			{
-				List <KeluargaModel> keluargas = keluargaDAO.selecKeluargaByKelurahan(id_kelurahan);
+				//List <KeluargaModel> keluargas = keluargaDAO.selecKeluargaByKelurahan(id_kelurahan);
 				
+				List <PendudukModel> penduduks = pendudukDAO.selectPendudukByKelurahan(id_kelurahan);
+				
+				/**
 				List <PendudukModel> penduduks = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(0).getId());
+				
 				for(int i = 1; i < keluargas.size(); i++)
 				{
-					List <PendudukModel> a = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(i).getId());
+					//List <PendudukModel> a = pendudukDAO.selectPendudukNIKNamaJenisKelaminByNKK(keluargas.get(i).getId());
+					
+					
+					/**
 					for (int j = 0; j < a.size(); j++)
 					{
-						penduduks.add(a.get(j));
+						//penduduks.add(a.get(j));
 						//System.out.println(a.get(j).getNama());
 					}
+					
 				}
+				*/
 				model.addAttribute("penduduks", penduduks);
 				return "cari-penduduk-success";
 			}
